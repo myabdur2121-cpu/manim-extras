@@ -2,4 +2,6 @@
 
 from __future__ import annotations
 
-__all__: list[str] = []
+from .smooth_polygon import SmoothPolygon
+
+__all__ = ["SmoothPolygon"]
