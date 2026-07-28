@@ -7,9 +7,8 @@ package instead of being copy-pasted between projects.
 ## Install
 
 ```bash
-git clone https://github.com/<you>/manim-extras
+git clone https://github.com/myabdur2121-cpu/manim-extras
 cd manim-extras
-pip install -e .
 ```
 
 Editable install: edits to the source take effect immediately, no reinstall.
