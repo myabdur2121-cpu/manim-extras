@@ -185,9 +185,7 @@ def test_mask_is_confined_to_the_shape():
     mask = glass._get_mask(camera, box)
 
     assert mask.max() == pytest.approx(1.0, abs=0.02)
-    assert mask[mask.shape[0] // 2, mask.shape[1] // 2, 0] == pytest.approx(
-        1.0, abs=0.02
-    )
+    assert mask[mask.shape[0] // 2, mask.shape[1] // 2, 0] == pytest.approx(1.0, abs=0.02)
     assert mask[0, 0, 0] == pytest.approx(0.0, abs=0.02)
 
 
