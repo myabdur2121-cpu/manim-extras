@@ -185,4 +185,3 @@ class CameraBlurDemo(Scene):
 
         self.play(veil.to(32), run_time=2)
         self.wait(1)
-      
