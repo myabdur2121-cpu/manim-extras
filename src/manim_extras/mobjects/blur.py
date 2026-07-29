@@ -235,9 +235,7 @@ def _shape_mask(
     ctx.fill()
     surface.flush()
 
-    buf = np.ndarray(
-        shape=(h, surface.get_stride()), dtype=np.uint8, buffer=surface.get_data()
-    )
+    buf = np.ndarray(shape=(h, surface.get_stride()), dtype=np.uint8, buffer=surface.get_data())
     return (buf[:, :w].astype(np.float32) / 255.0)[..., None]
 
 
@@ -414,7 +412,10 @@ class _BlurBase(VMobject):
     # ------------------------------------------- Transform / .animate
     def interpolate_color(self, m1: _BlurBase, m2: _BlurBase, alpha: float):
         super().interpolate_color(m1, m2, alpha)
-        lerp = lambda a, b: float(a + (b - a) * alpha)
+
+        def lerp(a: float, b: float) -> float:
+            return float(a + (b - a) * alpha)
+
         self.blur_amount = lerp(m1.blur_amount, m2.blur_amount)
         self.intensity = lerp(m1.intensity, m2.intensity)
         self.mask_feather = lerp(m1.mask_feather, m2.mask_feather)
@@ -460,9 +461,7 @@ class _BlurBase(VMobject):
         px0, py0 = max(0, x0 - pad), max(0, y0 - pad)
         px1, py1 = min(W, x1 + pad), min(H, y1 + pad)
 
-        blurred = gaussian_blur_rgba(
-            source[py0:py1, px0:px1], sigma, self.quality, self.downscale
-        )
+        blurred = gaussian_blur_rgba(source[py0:py1, px0:px1], sigma, self.quality, self.downscale)
 
         if self.tint is not None and self.tint_opacity > 0:
             t = np.array(self.tint.to_rgb(), dtype=np.float32) * 255.0
@@ -482,9 +481,9 @@ class _BlurBase(VMobject):
             return
         mask = mask * float(np.clip(self.intensity, 0.0, 1.0)) * fade
 
-        pixel_array[y0:y1, x0:x1] = np.clip(
-            dst * (1.0 - mask) + src * mask, 0, 255
-        ).astype(pixel_array.dtype)
+        pixel_array[y0:y1, x0:x1] = np.clip(dst * (1.0 - mask) + src * mask, 0, 255).astype(
+            pixel_array.dtype
+        )
 
     # ------------------------------------------------------------ helpers
     def _fade_alpha(self) -> float:
@@ -534,9 +533,7 @@ class _BlurBase(VMobject):
         self._mask_cache = (key, mask)
         return mask
 
-    def _pixel_box(
-        self, camera: Camera, W: int, H: int
-    ) -> tuple[int, int, int, int] | None:
+    def _pixel_box(self, camera: Camera, W: int, H: int) -> tuple[int, int, int, int] | None:
         pts = self.get_all_points()
         if len(pts) == 0:
             return None
@@ -702,13 +699,9 @@ class CameraBlur(Blur):
 # =============================================================================
 # 4 and 5. Cards -- the floating glass board look
 # =============================================================================
-def _card_shape(
-    width: float, height: float, corner_radius: float, **style: Any
-) -> VMobject:
+def _card_shape(width: float, height: float, corner_radius: float, **style: Any) -> VMobject:
     if corner_radius and corner_radius > 0:
-        return RoundedRectangle(
-            corner_radius=corner_radius, width=width, height=height, **style
-        )
+        return RoundedRectangle(corner_radius=corner_radius, width=width, height=height, **style)
     return Rectangle(width=width, height=height, **style)
 
 
