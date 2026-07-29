@@ -357,4 +357,3 @@ def test_interpolate_blends_the_blur_amount():
     mid = Blur(Rectangle(), 0)
     mid.interpolate_color(a, b, 0.5)
     assert mid.get_blur() == pytest.approx(20)
-  
