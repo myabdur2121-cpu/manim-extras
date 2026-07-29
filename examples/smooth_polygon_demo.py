@@ -1,7 +1,7 @@
 """Visual demo for SmoothPolygon.
 
-    manim -ql examples/smooth_polygon_demo.py SmoothPolygonDemo
-    manim -ql examples/smooth_polygon_demo.py SeamComparison
+manim -ql examples/smooth_polygon_demo.py SmoothPolygonDemo
+manim -ql examples/smooth_polygon_demo.py SeamComparison
 """
 
 import numpy as np
