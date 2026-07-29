@@ -12,6 +12,7 @@ license = { file = "LICENSE" }
 dependencies = [
     "manim>=0.18",
     "numpy>=1.22",
+    "scipy>=1.8",
 ]
 
 [project.optional-dependencies]
