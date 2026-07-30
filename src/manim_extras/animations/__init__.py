@@ -2,4 +2,9 @@
 
 from __future__ import annotations
 
-__all__: list[str] = []
+from .stream_along_path import ParticleStream, StreamAlongPath
+
+__all__ = [
+    "ParticleStream",
+    "StreamAlongPath",
+]
