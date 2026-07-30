@@ -82,9 +82,7 @@ def as_direction_vector(value) -> np.ndarray:
     if vector.size == 2:
         vector = np.array([vector[0], vector[1], 0.0])
     if vector.size != 3:
-        raise ValueError(
-            f"Direction must be a 2D/3D vector or an angle in radians, got {value!r}."
-        )
+        raise ValueError(f"Direction must be a 2D/3D vector or an angle in radians, got {value!r}.")
     norm = np.linalg.norm(vector)
     if norm == 0:
         raise ValueError("Direction vector cannot be the zero vector.")
@@ -99,9 +97,7 @@ def as_target_point(value) -> np.ndarray:
     if point.size == 2:
         point = np.array([point[0], point[1], 0.0])
     if point.size != 3:
-        raise ValueError(
-            f"A target point must be a 2D/3D point or a Mobject, got {value!r}."
-        )
+        raise ValueError(f"A target point must be a 2D/3D point or a Mobject, got {value!r}.")
     return point
 
 
@@ -200,34 +196,23 @@ class StreamAlongPath(AnimationGroup):
     ) -> None:
         # -- validation ------------------------------------------------
         if spawn_style not in SPAWN_STYLES:
-            raise ValueError(
-                f"spawn_style must be one of {SPAWN_STYLES}, got {spawn_style!r}."
-            )
+            raise ValueError(f"spawn_style must be one of {SPAWN_STYLES}, got {spawn_style!r}.")
         if not 0.0 <= start_proportion <= 1.0:
-            raise ValueError(
-                f"start_proportion must lie in [0, 1], got {start_proportion}."
-            )
+            raise ValueError(f"start_proportion must lie in [0, 1], got {start_proportion}.")
         if not 0.0 <= end_proportion <= 1.0:
-            raise ValueError(
-                f"end_proportion must lie in [0, 1], got {end_proportion}."
-            )
+            raise ValueError(f"end_proportion must lie in [0, 1], got {end_proportion}.")
         if start_proportion == end_proportion:
             raise ValueError(
-                "start_proportion and end_proportion must differ, "
-                "otherwise particles never move."
+                "start_proportion and end_proportion must differ, otherwise particles never move."
             )
         if run_time <= 0:
             raise ValueError(f"run_time must be positive, got {run_time}.")
         if travel_time <= 0:
             raise ValueError(f"travel_time must be positive, got {travel_time}.")
         if not 0.0 <= spawn_lag_ratio <= 1.0:
-            raise ValueError(
-                f"spawn_lag_ratio must lie in [0, 1], got {spawn_lag_ratio}."
-            )
+            raise ValueError(f"spawn_lag_ratio must lie in [0, 1], got {spawn_lag_ratio}.")
         if spawn_duration < 0 or despawn_duration < 0:
-            raise ValueError(
-                "spawn_duration and despawn_duration must be non-negative."
-            )
+            raise ValueError("spawn_duration and despawn_duration must be non-negative.")
         if not 0.0 <= min_scale <= 1.0:
             raise ValueError(f"min_scale must lie in [0, 1], got {min_scale}.")
         if max_particles < 1:
@@ -235,13 +220,10 @@ class StreamAlongPath(AnimationGroup):
         if particle_count is not None:
             if not isinstance(particle_count, (int, np.integer)):
                 raise TypeError(
-                    f"particle_count must be an int or None, got "
-                    f"{type(particle_count).__name__}."
+                    f"particle_count must be an int or None, got {type(particle_count).__name__}."
                 )
             if particle_count < 1:
-                raise ValueError(
-                    f"particle_count must be at least 1, got {particle_count}."
-                )
+                raise ValueError(f"particle_count must be at least 1, got {particle_count}.")
 
         # -- orientation: resolve now so bad input fails immediately ----
         reference_angle = angle_of_vector(as_direction_vector(reference_direction))
@@ -277,9 +259,7 @@ class StreamAlongPath(AnimationGroup):
                 stacklevel=2,
             )
         if face_away and face_point is None:
-            warnings.warn(
-                "face_away has no effect unless face_point is set.", stacklevel=2
-            )
+            warnings.warn("face_away has no effect unless face_point is set.", stacklevel=2)
 
         # A single particle cannot outlive the whole animation.
         travel_time = min(travel_time, run_time)
@@ -312,9 +292,7 @@ class StreamAlongPath(AnimationGroup):
         # Order matters: the birth-time jitter draws from the RNG before the
         # per-particle randomness does, so keep these two calls in this order.
         stream_span = run_time - travel_time
-        birth_times = np.asarray(
-            self._compute_birth_times(count, stream_span), dtype=float
-        )
+        birth_times = np.asarray(self._compute_birth_times(count, stream_span), dtype=float)
 
         # Hook: subclasses draw their per-particle state here.
         self._on_count_resolved(count)
@@ -476,9 +454,7 @@ class StreamAlongPath(AnimationGroup):
         behind = clamp(proportion - step)
         if ahead == behind:
             return np.array([1.0, 0.0, 0.0])
-        delta = self._path.point_from_proportion(
-            ahead
-        ) - self._path.point_from_proportion(behind)
+        delta = self._path.point_from_proportion(ahead) - self._path.point_from_proportion(behind)
         if not np.any(delta):
             return np.array([1.0, 0.0, 0.0])
         return normalize(delta)
@@ -501,9 +477,7 @@ class StreamAlongPath(AnimationGroup):
         copy.save_state()
         return copy
 
-    def _apply_appearance(
-        self, copy: Mobject, index: int, alpha: float, factor: float
-    ) -> None:
+    def _apply_appearance(self, copy: Mobject, index: int, alpha: float, factor: float) -> None:
         """Apply size and opacity for the current taper ``factor``."""
         if self._applies_scale:
             scale = self._min_scale + (1.0 - self._min_scale) * factor
@@ -576,17 +550,13 @@ class ParticleStream(StreamAlongPath):
     ) -> None:
         # -- validation -------------------------------------------------
         if position_jitter < 0:
-            raise ValueError(
-                f"position_jitter must be non-negative, got {position_jitter}."
-            )
+            raise ValueError(f"position_jitter must be non-negative, got {position_jitter}.")
         if not 0.0 <= size_jitter <= 1.0:
             raise ValueError(f"size_jitter must lie in [0, 1], got {size_jitter}.")
         if not 0.0 <= birth_jitter <= 1.0:
             raise ValueError(f"birth_jitter must lie in [0, 1], got {birth_jitter}.")
         if wobble_amplitude < 0:
-            raise ValueError(
-                f"wobble_amplitude must be non-negative, got {wobble_amplitude}."
-            )
+            raise ValueError(f"wobble_amplitude must be non-negative, got {wobble_amplitude}.")
         if path_colors is not None and not len(path_colors):
             raise ValueError("path_colors cannot be an empty sequence.")
         if particle_colors is not None and not len(particle_colors):
@@ -612,13 +582,9 @@ class ParticleStream(StreamAlongPath):
         if path_colors is not None:
             stops = list(path_colors)
             self._path_ramp = (
-                color_gradient(stops, _COLOR_STOPS)
-                if len(stops) > 1
-                else [stops[0]] * _COLOR_STOPS
+                color_gradient(stops, _COLOR_STOPS) if len(stops) > 1 else [stops[0]] * _COLOR_STOPS
             )
-        self._fixed_colors = (
-            list(particle_colors) if particle_colors is not None else None
-        )
+        self._fixed_colors = list(particle_colors) if particle_colors is not None else None
 
         # Filled in by _on_count_resolved once the count is known.
         self._offsets: np.ndarray | None = None
@@ -667,18 +633,14 @@ class ParticleStream(StreamAlongPath):
             births[-1] = stream_span
         return births
 
-    def _apply_appearance(
-        self, copy: Mobject, index: int, alpha: float, factor: float
-    ) -> None:
+    def _apply_appearance(self, copy: Mobject, index: int, alpha: float, factor: float) -> None:
         """Colour first, then size (with jitter) and opacity."""
         if self._path_ramp is not None:
             copy.set_color(self._path_ramp[int(alpha * (_COLOR_STOPS - 1))])
         elif self._fixed_colors is not None:
             copy.set_color(self._fixed_colors[index % len(self._fixed_colors)])
 
-        size_factor = (
-            float(self._size_factors[index]) if self._size_factors is not None else 1.0
-        )
+        size_factor = float(self._size_factors[index]) if self._size_factors is not None else 1.0
         if self._applies_scale:
             scale = self._min_scale + (1.0 - self._min_scale) * factor
             copy.scale(max(_SCALE_EPSILON, scale * size_factor))
@@ -701,12 +663,9 @@ class ParticleStream(StreamAlongPath):
             sideways = np.cross(self._tangent_vector(proportion), OUT)
             if np.any(sideways):
                 swing = np.sin(
-                    2 * np.pi * self._wobble_frequency * alpha
-                    + float(self._wobble_phases[index])
+                    2 * np.pi * self._wobble_frequency * alpha + float(self._wobble_phases[index])
                 )
-                position = position + normalize(sideways) * (
-                    self._wobble_amplitude * swing
-                )
+                position = position + normalize(sideways) * (self._wobble_amplitude * swing)
         return position
 
     # ------------------------------------------------------------------
@@ -729,8 +688,7 @@ class ParticleStream(StreamAlongPath):
         total = cumulative[-1]
         if total <= 0:
             warnings.warn(
-                "emission_rate_func is zero everywhere; falling back to a "
-                "steady emission rate.",
+                "emission_rate_func is zero everywhere; falling back to a steady emission rate.",
                 stacklevel=3,
             )
             return np.linspace(0.0, stream_span, count)
