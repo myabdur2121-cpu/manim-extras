@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from .animations import ParticleStream, StreamAlongPath
 from .mobjects import (
     Blur,
     BlurCard,
@@ -21,7 +22,9 @@ __all__ = [
     "CameraBlur",
     "IMGBlur",
     "IMGBlurCard",
+    "ParticleStream",
     "SmoothPolygon",
+    "StreamAlongPath",
     "__version__",
     "blur_config",
     "gaussian_blur_rgba",
