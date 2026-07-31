@@ -34,6 +34,7 @@ Each component has its own page; this table is the index.
 | --- | --- |
 | [`SmoothPolygon`](docs/smooth_polygon.md) | A smooth closed curve through a list of vertices — without the kink at the start point. |
 | [`Blur` and friends](docs/blur.md) | Frosted-glass layers that blur whatever is drawn beneath them: `Blur`, `IMGBlur`, `BlurCard`, `IMGBlurCard`, `CameraBlur`. |
+| [`StreamAlongPath` and `ParticleStream`](docs/animations/stream_along_path.md) | Streams of particles flowing along any path: density, path window, orientation, plus colour, jitter and a variable emission rate. |
 
 ## Layout
 
@@ -55,10 +56,10 @@ docs/                 one page per component
    `src/manim_extras/mobjects/my_thing.py`.
 2. Re-export it from that sub-package's `__init__.py`, then from
    `src/manim_extras/__init__.py`, so `from manim_extras import MyThing` works.
-3. Add `tests/test_my_thing.py` — assert on geometry, don't render.
-4. Add `examples/my_thing_demo.py` for the visual check.
-5. Add `docs/my_thing.md` and link it from the table above — keep the README
-   itself short.
+3. Add `tests/<sub-package>/test_my_thing.py` — assert on geometry, don't render.
+4. Add `examples/<sub-package>/my_thing_demo.py` for the visual check.
+5. Add `docs/<sub-package>/my_thing.md` and link it from the table above — keep
+   the README itself short.
 
 ## Development
 
