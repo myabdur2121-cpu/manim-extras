@@ -2,4 +2,6 @@
 
 from __future__ import annotations
 
-__all__: list[str] = []
+from .line_intersection import GeometryOperations, ManimGeometryAdapter
+
+__all__ = ["GeometryOperations", "ManimGeometryAdapter"]
