@@ -10,6 +10,11 @@ package instead of being copy-pasted between projects.
 git clone https://github.com/myabdur2121-cpu/manim-extras
 cd manim-extras
 ```
+or 
+```bash 
+!git clone https://github.com/myabdur2121-cpu/manim-extras.git
+!pip install -e /content/manim-extras
+```
 
 Editable install: edits to the source take effect immediately, no reinstall.
 
