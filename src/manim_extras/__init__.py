@@ -17,6 +17,7 @@ from .mobjects import (
     blur_config,
     gaussian_blur_rgba,
 )
+from .utils import GeometryOperations, ManimGeometryAdapter
 
 __version__ = "0.1.0"
 
@@ -25,10 +26,12 @@ __all__ = [
     "BlurCard",
     "CameraBlur",
     "DotCloud",
+    "GeometryOperations",
     "GlowDot",
     "GlowDots",
     "IMGBlur",
     "IMGBlurCard",
+    "ManimGeometryAdapter",
     "ParticleStream",
     "SmoothPolygon",
     "StreamAlongPath",
