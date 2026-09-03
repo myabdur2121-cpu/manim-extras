@@ -1,6 +1,6 @@
 # `SmoothPolygon`
 
-[← back to README](../README.md)
+[← back to README](../../README.md)
 
 A smooth closed curve through a list of vertices — **without the kink at the
 start point**.
@@ -65,5 +65,5 @@ and friends all work as usual.
 ## Run the demo
 
 ```bash
-manim -ql examples/smooth_polygon_demo.py SmoothPolygonDemo
+manim -ql examples/mobjects/smooth_polygon_demo.py SmoothPolygonDemo
 ```
