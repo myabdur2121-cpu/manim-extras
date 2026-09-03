@@ -6,23 +6,104 @@ package instead of being copy-pasted between projects.
 
 ## Install
 
+### Local
+
 ```bash
 git clone https://github.com/myabdur2121-cpu/manim-extras
 cd manim-extras
+pip install .
 ```
-or , 
-```bash 
-!git clone https://github.com/myabdur2121-cpu/manim-extras.git
-!pip install /content/manim-extras
-```
-here -e is not used 
-------------+
 
 Editable install: edits to the source take effect immediately, no reinstall.
 
 ```bash
 pip install -e ".[dev]"   # plus pytest and ruff
 ```
+
+### Google Colab
+
+Run this first, in its own cell — system libraries, LaTeX and Manim itself:
+
+```python
+!sudo apt update
+
+!sudo apt install libcairo2-dev \
+    texlive texlive-latex-extra texlive-fonts-extra \
+    texlive-latex-recommended texlive-science \
+    tipa libpango1.0-dev
+
+!pip install manim
+!pip install IPython==8.21.0
+```
+
+Then pick **one** of the three options below to get `manim_extras` itself.
+
+#### Option A — recommended (no restart, edits are live)
+
+```python
+!rm -rf /content/manim-extras
+!git clone -q https://github.com/myabdur2121-cpu/manim-extras.git /content/manim-extras
+
+# src-layout: the importable package is under src/, so add that to sys.path
+import sys
+SRC = "/content/manim-extras/src"
+if SRC not in sys.path:
+    sys.path.insert(0, SRC)
+
+from manim_extras import Blur, SmoothPolygon, GlowDot
+print("✅ ready")
+```
+
+Edited a file in the repo? Re-run just this to pick it up — no restart:
+
+```python
+import importlib, manim_extras
+importlib.reload(manim_extras)
+```
+
+#### Option B — proper editable install (needs one restart)
+
+```python
+# Cell 1
+!rm -rf /content/manim-extras
+!git clone -q https://github.com/myabdur2121-cpu/manim-extras.git /content/manim-extras
+!pip install -q -e /content/manim-extras
+
+import os
+os.kill(os.getpid(), 9)   # kills runtime — it auto-reconnects
+```
+
+```python
+# Cell 2 — run AFTER the runtime reconnects
+from manim_extras import Blur, SmoothPolygon, GlowDot
+print("✅ ready")
+```
+
+#### Option C — plain install (works, but no live edits)
+
+```python
+!rm -rf /content/manim-extras
+!git clone -q https://github.com/myabdur2121-cpu/manim-extras.git /content/manim-extras
+!pip install -q /content/manim-extras          # no -e
+
+from manim_extras import Blur, SmoothPolygon
+```
+
+After editing any source file you must re-run `pip install` — the copy in
+`site-packages` is stale otherwise.
+
+> **Why `-e` fails without a restart.** `pip install -e` doesn't copy the
+> package into `site-packages`; it drops a `.pth` file that registers an import
+> hook, and `.pth` files are only read when the interpreter *starts*. A kernel
+> that was already running never sees it, so the import fails. A plain
+> `pip install` copies the files in, which is why it works straight away.
+>
+> The yellow squiggle Colab draws under `manim_extras` is its static linter
+> failing to resolve the path — ignore it if the import prints `✅ ready`.
+>
+> Don't use `%cd /content/manim-extras` instead of the above: with the `src/`
+> layout there is no `manim_extras/` folder at the repo root, so changing
+> directory puts nothing importable on `sys.path`.
 
 ## Usage
 
