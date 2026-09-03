@@ -1,6 +1,6 @@
 # `Blur`, `IMGBlur`, `BlurCard`, `IMGBlurCard`, `CameraBlur`
 
-[← back to README](../README.md)
+[← back to README](../../README.md)
 
 Frosted-glass layers. A blur layer is a real `VMobject` whose **interior**
 blurs whatever has already been drawn beneath it.
@@ -206,9 +206,9 @@ module falls back to Pillow and still works, just slightly softer.
 ## Run the demos
 
 ```bash
-manim -ql examples/blur_demo.py GlassDoorDemo
-manim -ql examples/blur_demo.py LiveVsStaticDemo
-manim -ql examples/blur_demo.py AnyShapeDemo
-manim -ql examples/blur_demo.py CardDemo
-manim -ql examples/blur_demo.py CameraBlurDemo
+manim -ql examples/mobjects/blur_demo.py GlassDoorDemo
+manim -ql examples/mobjects/blur_demo.py LiveVsStaticDemo
+manim -ql examples/mobjects/blur_demo.py AnyShapeDemo
+manim -ql examples/mobjects/blur_demo.py CardDemo
+manim -ql examples/mobjects/blur_demo.py CameraBlurDemo
 ```
