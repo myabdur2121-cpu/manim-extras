@@ -33,8 +33,8 @@ Each component has its own page; this table is the index.
 
 | Component | What it does |
 | --- | --- |
-| [`SmoothPolygon`](docs/smooth_polygon.md) | A smooth closed curve through a list of vertices — without the kink at the start point. |
-| [`Blur` and friends](docs/blur.md) | Frosted-glass layers that blur whatever is drawn beneath them: `Blur`, `IMGBlur`, `BlurCard`, `IMGBlurCard`, `CameraBlur`. |
+| [`SmoothPolygon`](docs/mobjects/smooth_polygon.md) | A smooth closed curve through a list of vertices — without the kink at the start point. |
+| [`Blur` and friends](docs/mobjects/blur.md) | Frosted-glass layers that blur whatever is drawn beneath them: `Blur`, `IMGBlur`, `BlurCard`, `IMGBlurCard`, `CameraBlur`. |
 | [`StreamAlongPath` and `ParticleStream`](docs/animations/stream_along_path.md) | Streams of particles flowing along any path: density, path window, orientation, plus colour, jitter and a variable emission rate. |
 | [`GlowDot` and friends](docs/mobjects/glow_dot.md) | 3Blue1Brown's glowing dots for Manim Community: `GlowDot`, `GlowDots`, `TrueDot`, `DotCloud`, with a custom falloff and a hot core. |
 | [`GeometryOperations` and `ManimGeometryAdapter`](docs/utils/line_intersection.md) | 2D line-intersection helpers: a pure-math core, plus a bridge to Manim `Mobject`s. |
@@ -69,7 +69,7 @@ docs/                 one page per component
 ```bash
 pytest                                    # fast, renders nothing
 ruff check . && ruff format .
-manim -ql examples/smooth_polygon_demo.py SmoothPolygonDemo
+manim -ql examples/mobjects/smooth_polygon_demo.py SmoothPolygonDemo
 ```
 
 ## Requirements
