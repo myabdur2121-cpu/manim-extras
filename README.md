@@ -38,7 +38,7 @@ Run this first, in its own cell — system libraries, LaTeX and Manim itself:
 
 Then pick **one** of the three options below to get `manim_extras` itself.
 
-#### Option A — recommended (no restart, edits are live)
+#### Option A —  (no restart, edits are live)
 
 ```python
 !rm -rf /content/manim-extras
@@ -62,7 +62,7 @@ importlib.reload(manim_extras)
 ```
 
 #### Option B — proper editable install (needs one restart)
-
+(Recommend)
 ```python
 # Cell 1
 !rm -rf /content/manim-extras
